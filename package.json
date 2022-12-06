@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "This repository contains all the information you need to complete the\r project for the ST2 Software Testing course.",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GdPaul1234/efrei-2023-st2-tst-prj.git"
