@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { EmployeeData, fillOutForm, new_employee_data } from './employee-helper';
+import { EmployeeData, fillOutEmployeeCreationForm, new_employee_data } from './employee-helper';
 
 test.describe('Insert employees', () => {
   test.beforeEach(async ({ page }) => {
@@ -12,7 +12,7 @@ test.describe('Insert employees', () => {
   })
 
   test('Insert a valid employee', async ({ page }) => {
-    await fillOutForm(new_employee_data, page)
+    await fillOutEmployeeCreationForm(page, new_employee_data)
     await page.getByRole('button', { name: 'Add' }).click()
 
     await expect(page.locator('h2')).toContainText('Employees (1)')
@@ -24,7 +24,7 @@ test.describe('Insert employees', () => {
       zip_code: '-1'
     }
 
-    await fillOutForm(employee_data, page)
+    await fillOutEmployeeCreationForm(page, employee_data)
     await page.getByRole('button', { name: 'Add' }).click()
 
     await expect(page.locator('h2')).not.toContainText('Employees (1)')
@@ -36,7 +36,7 @@ test.describe('Insert employees', () => {
       zip_code: '12345678912345600000'
     }
 
-    await fillOutForm(employee_data, page)
+    await fillOutEmployeeCreationForm(page, employee_data)
     await page.getByRole('button', { name: 'Add' }).click()
 
     await expect(page.locator('h2')).not.toContainText('Server Error (500)')

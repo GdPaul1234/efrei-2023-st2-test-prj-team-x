@@ -1,10 +1,5 @@
-import { test, expect, Page } from '@playwright/test';
-
-async function createTeam(page: Page, name: string) {
-  await page.goto('https://x.hr.dmerej.info/add_team')
-  await page.getByPlaceholder('Name').fill(name)
-  await page.getByRole('button', { name: 'Add' }).click()
-}
+import { test, expect } from '@playwright/test'
+import { createTeam } from './team-helper'
 
 test.describe('Insert team', () => {
   test.afterEach(async ({ page }) => {

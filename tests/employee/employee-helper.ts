@@ -22,7 +22,9 @@ export const new_employee_data: EmployeeData = {
     job_title: 'Fake Job Title'
 }
 
-export async function fillOutForm(employee_data: EmployeeData, page: Page) {
+export async function fillOutEmployeeCreationForm(page: Page, employee_data: EmployeeData) {
+    await page.goto('https://x.hr.dmerej.info/add_employee')
+
     for (const [key, value] of Object.entries(employee_data)) {
         await page.type(`#id_${key}`, value)
     }

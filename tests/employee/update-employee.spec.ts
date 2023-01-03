@@ -1,5 +1,5 @@
 import { test, expect, Page } from '@playwright/test';
-import { fillOutForm, EmployeeData, new_employee_data as employee_data } from './employee-helper';
+import { fillOutEmployeeCreationForm, EmployeeData, new_employee_data } from './employee-helper';
 
 type Input = {
   key: keyof EmployeeData
@@ -26,7 +26,7 @@ async function assertEmployee(page: Page, linkName: string, expected: Input[]) {
 test.describe('Update employee', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('https://x.hr.dmerej.info/add_employee');
-    await fillOutForm(employee_data, page)
+    await fillOutEmployeeCreationForm(page, new_employee_data)
     await page.getByRole('button', { name: 'Add' }).click()
 
     await page.goto('https://x.hr.dmerej.info/employees')
