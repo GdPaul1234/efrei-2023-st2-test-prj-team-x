@@ -1,5 +1,5 @@
 import { test, expect, Page } from '@playwright/test';
-import { fillOutForm, EmployeeData, new_employee_data } from './employee-helper';
+import { fillOutForm, EmployeeData, new_employee_data as employee_data } from './employee-helper';
 
 type Input = {
     key: keyof EmployeeData
@@ -26,7 +26,7 @@ async function assertEmployee(page: Page, linkName: string, expected: Input[]) {
 test.describe('Update employee', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('https://x.hr.dmerej.info/add_employee');
-        await fillOutForm(new_employee_data, page)
+        await fillOutForm(employee_data, page)
         await page.getByRole('button', { name: 'Add' }).click()
 
         await page.goto('https://x.hr.dmerej.info/employees')
@@ -63,6 +63,19 @@ test.describe('Update employee', () => {
         test('should persist update', async ({ page }) => {
             const linkName = ' Update contract '
             const inputs: Input[] = [{ key: 'job_title', value: 'New job' }]
+
+            await updateEmployee(page, linkName, inputs)
+            await assertEmployee(page, linkName, inputs)
+        })
+    })
+
+    test.describe('Update basic info', () => {
+        test('should persist update', async ({ page }) => {
+            const linkName = ' Update basic info '
+            const inputs: Input[] = [
+                { key: 'name', value: 'New Name' },
+                { key: 'email', value: 'a@b.com' }
+            ]
 
             await updateEmployee(page, linkName, inputs)
             await assertEmployee(page, linkName, inputs)
